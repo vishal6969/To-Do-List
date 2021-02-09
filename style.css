@@ -1,0 +1,18 @@
+.z{
+    color:red;
+    text-decoration:line-through;
+}
+body{
+    background-color:skyblue;
+}
+.inputs{
+    margin:auto 10%;
+    height:30px;
+    display:flex;
+}
+.p{
+    width:80%;
+}
+.div{
+    margin:20px 5%;
+}
