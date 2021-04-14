@@ -6,7 +6,8 @@ let toDoItems=[];
 function Handler(item){
       const all=document.querySelectorAll(".div");
     all.forEach(function(object){
-        if(object.querySelector(".pp").textContent===item)
+        var text=object.querySelector(".pp").textContent;
+        if("https://"+text===item)
         {
     object.querySelector(".e").addEventListener("click",function(){
         y.value=item;
@@ -38,8 +39,11 @@ function createList(toDoItems){
     toDoItems.forEach(function(item){
     if(item!="")
     {
+        var temp=item;
+        if(item.substring(0,8)==="https://")
+        temp='<a href="'+item+'" target="_blank">'+item.substring(8,item.length)+'</a>';
     x.insertAdjacentHTML("beforeend",`<div class="div">
-    <p class="pp" style="display:inline;font-size:120%"><i>${item}</i></p>
+    <p class="pp" style="display:inline;font-size:120%"><i>${temp}</i></p>
     <button style="float:right" class="e">E</button>
     <button style="float:right" class="c">C</button>
     <button style="float:right" class="d">D</button>
