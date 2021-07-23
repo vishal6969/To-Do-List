@@ -7,17 +7,23 @@ function Handler(item){
       const all=document.querySelectorAll(".div");
     all.forEach(function(object){
         var text=object.querySelector(".pp").textContent;
-        if("https://"+text===item)
+        if(text===item)
         {
     object.querySelector(".e").addEventListener("click",function(){
         y.value=item;
+        toDoItems=toDoItems.filter(function(inp){
+            return inp!=item;
+         });
         object.remove();
+        setLocalStorage(toDoItems);
     });
     object.querySelector(".c").addEventListener("click",function(){
        object.querySelector(".pp").innerHTML+="[COMPLETED]";
        function complete(ite){
-            if(ite===item)
-           return ite+"[COMPLETED]";
+            if(ite===item){
+                item+="[COMPLETED]";
+                return item;
+            }
            else
            return ite;
        }
@@ -40,12 +46,13 @@ function createList(toDoItems){
     if(item!="")
     {
         var temp=item;
-        if(item.substring(0,8)==="https://")
-        temp='<a href="'+item+'" target="_blank">'+item.substring(8,item.length)+'</a>';
+        var b=item.substring(0,8)==="https://";
+        if(b)
+        temp='<a href="'+item+'" target="_blank">'+item+'</a>';
     x.insertAdjacentHTML("beforeend",`<div class="div">
     <p class="pp" style="display:inline;font-size:120%"><i>${temp}</i></p>
     <button style="float:right" class="e">E</button>
-    <button style="float:right" class="c">C</button>
+    <button ${b?"disabled":" "} style="float:right" class="c">C</button>
     <button style="float:right" class="d">D</button>
     </div>`);
      Handler(item);
@@ -68,9 +75,9 @@ function setLocalStorage(toDoItems){
 getLocalStorage();
 document.querySelector(".btn").addEventListener("click",function()
 {
-    toDoItems.push(y.value);
-    if(y.value)
+    if(y.value && toDoItems.indexOf(y.value)==-1)
     {
+    toDoItems.push(y.value);
     setLocalStorage(toDoItems);
     createList(toDoItems);
     }
