@@ -58,24 +58,16 @@ function createList(toDoItems) {
   y.value = "";
 }
 function getLocalStorage() {
-  //   data.ref().get().then(function (d) {
-  //     console.log(d);
-  //   });
-  // let storage = null;
   data.once('value').then((snapshot)=>{
-    toDoItems = snapshot.val();
-    createList(toDoItems);
-    console.log('done');
+    const val =  snapshot.val();
+    if(val){
+      toDoItems = val;
+      createList(toDoItems);
+    }
   });
-  // if (storage) {
-  //   toDoItems = JSON.parse(storage);
-  //   createList(toDoItems);
-  // }
 }
 function setLocalStorage(toDoItems) {
-  // localStorage.setItem("toDoItem", JSON.stringify(toDoItems));
   data.set(toDoItems);
-  // data.remove();
 }
 getLocalStorage();
 document.querySelector(".btn").addEventListener("click", function () {
